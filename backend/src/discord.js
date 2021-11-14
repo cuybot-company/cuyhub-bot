@@ -19,7 +19,7 @@ const client = new Client({
 });
 
 client.on("ready", () => {
-  console.log("[+] Discord on ready");
+  logger.info("[+] Discord on ready");
 });
 
 client.on("messageCreate", async (message) => {
@@ -41,7 +41,7 @@ client.on("messageCreate", async (message) => {
       output = (await helpCommand(splitMessage[1])) || (await readMessageCommand("output.DISCORD.FAILED", "help"));
     } else {
       output = embeed(await readMessageCommand("output.DISCORD.SUCCESS", "help"));
-      console.log(output);
+      logger.info(output);
     }
   } else if (userMessage.includes(PREFIX) && findCommand(splitMessage[0], "on_discord")) {
     const usingApi = await readMessageCommand("using_api", nameCommand);

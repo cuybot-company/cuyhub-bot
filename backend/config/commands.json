@@ -130,6 +130,7 @@
       }
     }
   },
+
   {
     "name": "ngopi",
     "command": "cuy/ngopi",

@@ -18,7 +18,7 @@ const bot = new TelegramBot(TOKEN, {
   polling: true,
 });
 
-console.log("[+] Telegram on ready");
+console.info("[+] Telegram on ready");
 
 bot.on("message", async (msg) => {
   if (msg.from.is_bot) return;
