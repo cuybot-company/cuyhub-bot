@@ -13,7 +13,7 @@ app.get("/", (req, res) => {
 
 const keepAlive = async () => {
   app.listen(PORT, async () => {
-    console.log(`Listening on: http://localhost:${PORT}`);
+    logger.info(`Listening on: http://localhost:${PORT}`);
   });
 };
 

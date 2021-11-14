@@ -8,13 +8,11 @@ const { readMessageCommand, findCommand } = require("../helper/json");
 
 const TelegramBot = require("node-telegram-bot-api");
 
-const { TOKEN_TELEGRAM_BETA, TOKEN_TELEGRAM_PRODUCTION, DEVELOPMENT } =
-  process.env;
+const { TOKEN_TELEGRAM_BETA, TOKEN_TELEGRAM_PRODUCTION, DEVELOPMENT } = process.env;
 
 const { PREFIX } = require("../config/settings.json");
 
-const TOKEN =
-  DEVELOPMENT == "BETA" ? TOKEN_TELEGRAM_BETA : TOKEN_TELEGRAM_PRODUCTION;
+const TOKEN = DEVELOPMENT == "BETA" ? TOKEN_TELEGRAM_BETA : TOKEN_TELEGRAM_PRODUCTION;
 
 const bot = new TelegramBot(TOKEN, {
   polling: true,
@@ -42,26 +40,18 @@ bot.on("message", async (msg) => {
 
   if (await userMessage.includes(`${PREFIX}help`)) {
     if (splitMessage.length == 2) {
-      output =
-        (await helpCommand(splitMessage[1])) ||
-        (await readMessageCommand("output.TELEGRAM.FAILED", "help"));
+      output = (await helpCommand(splitMessage[1])) || (await readMessageCommand("output.TELEGRAM.FAILED", "help"));
     } else {
       output = await readMessageCommand("output.TELEGRAM.SUCCESS", "help");
     }
-  } else if (
-    userMessage.includes(PREFIX) &&
-    findCommand(splitMessage[0], "on_telegram")
-  ) {
+  } else if (userMessage.includes(PREFIX) && findCommand(splitMessage[0], "on_telegram")) {
     const usingApi = await readMessageCommand("using_api", nameCommand);
 
     if (usingApi) {
       let options = [];
       const url = await readMessageCommand("API.URL", nameCommand);
       const method = await readMessageCommand("API.METHOD", nameCommand);
-      const getMessageOutputAPI = await readMessageCommand(
-        "API.SUCCESS_MESSAGE",
-        nameCommand
-      );
+      const getMessageOutputAPI = await readMessageCommand("API.SUCCESS_MESSAGE", nameCommand);
       const regexmatcherOutputAPI = new RegExp(getMessageOutputAPI, "gi");
 
       if (method === "GET") {
@@ -72,9 +62,7 @@ bot.on("message", async (msg) => {
         let tempMessageSplit1 = "";
 
         if (urlSplit.length < tempMessageSplit.length) {
-          tempMessageSplit1 = tempMessageSplit
-            .slice(1, tempMessageSplit.length)
-            .join(" ");
+          tempMessageSplit1 = tempMessageSplit.slice(1, tempMessageSplit.length).join(" ");
           tempMessageSplit = [tempMessageSplit[0], tempMessageSplit1];
         }
 
@@ -105,24 +93,14 @@ bot.on("message", async (msg) => {
       const { data } = await axios(options[0]);
 
       if (regexmatcherOutputAPI.test(toString(data))) {
-        output = sendDataApi(
-          await readMessageCommand("output.TELEGRAM.SUCCESS", nameCommand),
-          data
-        );
+        output = sendDataApi(await readMessageCommand("output.TELEGRAM.SUCCESS", nameCommand), data);
       } else {
-        output = sendDataApi(
-          await readMessageCommand("output.TELEGRAM.FAILED", nameCommand),
-          data
-        );
+        output = sendDataApi(await readMessageCommand("output.TELEGRAM.FAILED", nameCommand), data);
       }
     } else {
       output = await readMessageCommand("output.TELEGRAM.SUCCESS", nameCommand);
     }
   }
 
-  return output !== ""
-    ? output.match(/.(jpg|jpeg|png|gif)$/i)
-      ? bot.sendPhoto(chatId, output.trim())
-      : bot.sendMessage(chatId, output, { parse_mode: "Markdown" })
-    : "";
+  return output !== "" ? (output.match(/.(jpg|jpeg|png|gif)$/i) ? bot.sendPhoto(chatId, output.trim()) : bot.sendMessage(chatId, output, { parse_mode: "Markdown" })) : "";
 });
