@@ -1,0 +1,205 @@
+[
+  {
+    "name": "help",
+    "command": "cuy/help",
+    "description": "show help command",
+    "usage": "cuy/help [command]",
+    "on_discord": true,
+    "on_telegram": true,
+    "using_api": false,
+    "API": {},
+    "output": {
+      "DISCORD": {
+        "SUCCESS": {
+          "title": "",
+          "description": "help",
+          "color": "",
+          "author": {
+            "name": "",
+            "url": "",
+            "icon": ""
+          },
+          "thumbnail": "",
+          "image": "",
+          "footer": {
+            "text": "",
+            "icon": ""
+          },
+          "field": []
+        },
+        "FAILED": {
+          "title": ":x: command tidak ditemukan :x:"
+        }
+      },
+      "TELEGRAM": {
+        "SUCCESS": "cuy/help [command], \ncuy/tiktok (username tiktok)",
+        "FAILED": ""
+      }
+    }
+  },
+  {
+    "name": "tiktok",
+    "command": "cuy/tiktok",
+    "description": "Menampilkan info akun tiktok",
+    "usage": "cuy/tiktok [username tiktok]",
+    "on_discord": true,
+    "on_telegram": true,
+    "using_api": true,
+    "API": {
+      "URL": "https://info-tiktok.rizsyad.repl.co/{}",
+      "METHOD": "GET",
+      "SUCCESS_MESSAGE": "SUCCESS_REQ_API_TIKTOK"
+    },
+    "output": {
+      "DISCORD": {
+        "SUCCESS": {
+          "title": ":information_source: Informasi Akun TikTok :information_source:",
+          "description": "",
+          "color": "",
+          "author": {
+            "name": "data.username",
+            "url": "data.url",
+            "icon": "data.profileImage"
+          },
+          "thumbnail": "data.profileImage",
+          "image": "",
+          "footer": {
+            "text": "",
+            "icon": ""
+          },
+          "field": [
+            {
+              "name": "Bio",
+              "value": "data.bio",
+              "inline": true
+            },
+            {
+              "name": "Following",
+              "value": "data.following",
+              "inline": true
+            },
+            {
+              "name": "Followers",
+              "value": "data.followers",
+              "inline": true
+            },
+
+            {
+              "name": "Fans",
+              "value": "data.followers",
+              "inline": true
+            },
+            {
+              "name": "Hearts",
+              "value": "data.hearts",
+              "inline": true
+            },
+            {
+              "name": "Videos",
+              "value": "data.videos",
+              "inline": true
+            },
+            {
+              "name": "Verified",
+              "value": "data.verified",
+              "inline": true
+            }
+          ]
+        },
+        "FAILED": {
+          "title": ":information_source: Informasi Akun TikTok :information_source:",
+          "description": "gagal mendapatkan info akun tiktok",
+          "color": "",
+          "author": {
+            "name": "",
+            "url": "",
+            "icon": ""
+          },
+          "thumbnail": "",
+          "image": "",
+          "footer": {
+            "text": "",
+            "icon": ""
+          },
+          "field": []
+        }
+      },
+      "TELEGRAM": {
+        "SUCCESS": "Informasi Akun TikTok\n\n*username*: data.username \n*bio*: data.bio \n*Following*: data.following \n*Followers*: data.followers \n*Hearts*: data.hearts \n*Videos*: data.videos \n*Verified*: data.verified \n*Url*: data.url \n",
+        "FAILED": "gagal dapet info tiktok"
+      }
+    }
+  },
+  {
+    "name": "ngopi",
+    "command": "cuy/ngopi",
+    "description": "Menampilkan random ngopi",
+    "usage": "cuy/ngopi",
+    "on_discord": true,
+    "on_telegram": true,
+    "using_api": true,
+    "API": {
+      "URL": "https://coffee.alexflipnote.dev/random.json",
+      "METHOD": "GET",
+      "SUCCESS_MESSAGE": "file"
+    },
+    "output": {
+      "DISCORD": {
+        "SUCCESS": {
+          "title": "",
+          "description": ":coffee: ngopi dulu cuy",
+          "color": "",
+          "author": {
+            "name": "",
+            "url": "",
+            "icon": ""
+          },
+          "thumbnail": "",
+          "image": "file",
+          "footer": {
+            "text": "",
+            "icon": ""
+          },
+          "field": []
+        },
+        "FAILED": {
+          "title": "gagal mendapatkan kopi",
+          "description": "",
+          "color": "",
+          "author": {
+            "name": "",
+            "url": "",
+            "icon": ""
+          },
+          "thumbnail": "",
+          "image": "",
+          "footer": {
+            "text": "",
+            "icon": ""
+          },
+          "field": [
+            {
+              "name": "",
+              "value": "",
+              "inline": ""
+            },
+            {
+              "name": "",
+              "value": "",
+              "inline": ""
+            },
+            {
+              "name": "",
+              "value": "",
+              "inline": ""
+            }
+          ]
+        }
+      },
+      "TELEGRAM": {
+        "SUCCESS": "file",
+        "FAILED": "gagal mendapatkan kopi"
+      }
+    }
+  }
+]
