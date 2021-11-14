@@ -20,7 +20,8 @@
     "simple-json-db": "^1.2.3"
   },
   "scripts": {
-    "dev": "nodemon --exec babel-node src/index.js"
+    "dev": "nodemon --exec babel-node src/index.js",
+    "test": "nodemon --exec babel-node test/test.js"
   },
   "devDependencies": {
     "eslint": "^8.2.0",

@@ -6,5 +6,6 @@ const Database = require("./database");
 const logger = require("../helper/logger");
 
 global.logger = new logger();
+
 keepAlive();
 Database();
