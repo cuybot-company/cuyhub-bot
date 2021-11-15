@@ -2,7 +2,7 @@ const consola = require("consola");
 const chalk = require("chalk");
 
 module.exports = class Logger {
-  mainColor = "#9677d4";
+  mainColor = "#94DAFF";
   successColor = "#41f45e";
   errorColor = "#ba1e1e";
 
@@ -19,6 +19,10 @@ module.exports = class Logger {
   }
 
   async connected(tag, id) {
-    return this.success(`Successfully Login As ${chalk.underline(tag)} ${chalk.grey.italic(`(id: ${id})`)}`);
+    return this.success(
+      `Successfully Login As ${chalk.underline(tag)} ${chalk.grey.italic(
+        `(id: ${id})`
+      )}`
+    );
   }
 };
