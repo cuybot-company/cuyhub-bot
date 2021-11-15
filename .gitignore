@@ -3,5 +3,7 @@
 **/package-lock.json
 **/yarn-error.log
 **/yarn.lock
+**/pnpm-lock.yaml
 **/.DS_Store
 .DS_Store
+.pnpm-debug.log
