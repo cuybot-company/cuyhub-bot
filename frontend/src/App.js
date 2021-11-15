@@ -1,12 +1,11 @@
-import logo from "./logo.svg";
 import "./App.css";
-import Typical from "react-typical";
+import Title from "./component/Title/Title.jsx";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Typical steps={["Cuyhub", 1000, "Cuyhub Community!", 500]} loop={Infinity} wrapper="p" />
+        <Title />
       </header>
     </div>
   );
