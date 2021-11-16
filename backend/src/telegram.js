@@ -25,12 +25,9 @@ logger.info("Telegram on ready");
 bot.on("message", async (msg) => {
   if (msg.from.is_bot) return;
 
-  const { id, type } = msg.chat;
-
-  const { first_name, last_name } = msg.from;
+  const { id } = msg.chat;
 
   const chatId = id;
-  const fullName = `${first_name} ${last_name}`;
   const userMessage = msg.text;
 
   if (userMessage === undefined) return;

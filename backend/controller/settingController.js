@@ -1,48 +1,46 @@
+const express = require("express");
+const route = express.Router();
 const Setting = require("../models/settingModels");
 
-export const addSetting = (name, value) => {
-  const setting = new Setting({ name, value });
+// add setting
+// json data {"name": ..., "value": ...}
+route.post("/new", async (req, res) => {
+  const setting = await new Setting(req.body);
+  const saveSetting = await setting.save();
+  res.json(saveSetting);
+});
 
-  setting.save((err, res) => {
-    if (err) logger.error("Error insert setting");
-    if (res) {
-      logger.success("Success insert setting");
-      return { success: true };
-    }
-    return { success: false };
-  });
-};
+// get all setting
+route.get("/", async (req, res) => {
+  const data = await Setting.find();
+  res.json(data);
+});
 
-export const getAllSetting = (schema = {}) => {
-  Setting.find(schema, (err, res) => {
-    if (err) logger.error("Error get setting");
-    console.log(res);
-  });
-};
+// get spasific setting
+route.get("/get/:id", async (req, res) => {
+  const data = await Setting.findById(req.params.id);
+  res.json(data);
+});
 
-export const getOneSetting = (schema = {}) => {
-  Setting.findOne(schema, (err, res) => {
-    if (err) logger.error("Error get setting");
-    console.log(res);
-  });
-};
+// get by name spasific setting
+route.get("/get/name/:name", async (req, res) => {
+  const data = await Setting.findOne({ name: req.params.name });
+  res.json(data);
+});
 
-export const getByIdSetting = (id) => {
-  Setting.findById(id, (err, res) => {
-    if (err) logger.error("Error get setting");
-    console.log(res);
+// update
+// json data {"name": ..., "value": ...}
+route.patch("/update/:id", async (req, res) => {
+  const updateSetting = await Setting.findByIdAndUpdate(req.params.id, {
+    $set: req.body,
   });
-};
+  res.json(updateSetting);
+});
 
-export const updateSetting = (id, schema) => {
-  Setting.findByIdAndUpdate(id, schema, (err, res) => {
-    if (err) logger.error("Error update setting");
-  });
-};
+// delete
+route.delete("/delete/:id", async (req, res) => {
+  const deleteSetting = await Setting.findByIdAndDelete(req.params.id);
+  res.json(deleteSetting);
+});
 
-export const deleteSetting = (id) => {
-  Setting.findByIdAndDelete(id, (err, res) => {
-    if (err) logger.error("Error delete setting");
-    logger.success("Successfuly deleted");
-  });
-};
+module.exports = route;

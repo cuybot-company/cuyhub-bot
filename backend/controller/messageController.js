@@ -1,49 +1,46 @@
+const express = require("express");
+const route = express.Router();
 const Message = require("../models/messageModels");
 
-export const addMessage = (name, value) => {
-  const message = new Message({ name, value });
+// add message
+// json data {"name": ..., "value": ...}
+route.post("/new", async (req, res) => {
+  const message = await new Message(req.body);
+  const saveMessage = await message.save();
+  res.json(saveMessage);
+});
 
-  message.save((err, res) => {
-    if (err) logger.error("Error insert message");
-    if (res) {
-      logger.success("Success insert message");
-      return { success: true };
-    }
-    return { success: false };
-  });
-};
+// get all message
+route.get("/", async (req, res) => {
+  const data = await Message.find();
+  res.json(data);
+});
 
-export const getAllMessage = (schema = {}) => {
-  Message.find(schema, (err, res) => {
-    if (err) logger.error("Error get message");
-    console.log(res);
-  });
-};
+// get spasific message
+route.get("/get/:id", async (req, res) => {
+  const data = await Message.findById(req.params.id);
+  res.json(data);
+});
 
-export const getOneMessage = (schema = {}) => {
-  Message.findOne(schema, (err, res) => {
-    if (err) logger.error("Error get message");
-    console.log(res);
-  });
-};
+// get by name spasific message
+route.get("/get/name/:name", async (req, res) => {
+  const data = await Message.findOne(req.params.name);
+  res.json(data);
+});
 
-export const getByIdMessage = (id) => {
-  Message.findById(id, (err, res) => {
-    if (err) logger.error("Error get message");
-    console.log(res);
+// update
+// json data {"name": ..., "value": ...}
+route.patch("/update/:id", async (req, res) => {
+  const updateMessage = await Message.findByIdAndUpdate(req.params.id, {
+    $set: req.body,
   });
-};
+  res.json(updateMessage);
+});
 
-export const updateMessage = (id, schema) => {
-  Message.findByIdAndUpdate(id, schema, (err, res) => {
-    if (err) logger.error("Error update message");
-    logger.success("Successfuly updated");
-  });
-};
+// delete
+route.delete("/delete/:id", async (req, res) => {
+  const deleteMessage = await Message.findByIdAndDelete(req.params.id);
+  res.json(deleteMessage);
+});
 
-export const deleteMessage = (id, schema) => {
-  Message.findByIdAndDelete(id, (err, res) => {
-    if (err) logger.error("Error delete message");
-    logger.success("Successfuly deleted");
-  });
-};
+module.exports = route;

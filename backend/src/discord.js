@@ -27,8 +27,6 @@ client.on("ready", () => {
 client.on("messageCreate", async (message) => {
   if (message.author.bot) return;
 
-  const { channelId } = message;
-  const { username } = message.author;
   const userMessage = message.content;
 
   if (userMessage === undefined) return;

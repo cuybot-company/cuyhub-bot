@@ -7,7 +7,7 @@ module.exports = async () => {
   });
 };
 
-mongo.connection.on("connected", () => {
+mongo.connection.once("open", () => {
   logger.success("Database Succesfuly Connected To MONGODB!!");
 });
 

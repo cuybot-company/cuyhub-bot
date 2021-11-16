@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const SettingSchema = new Schema(
   {
-    name: { type: String, required: true },
+    name: { type: String, required: true, uppercase: true },
     value: { type: String, required: true },
   },
   { timestamps: true }
