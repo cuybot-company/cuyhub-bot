@@ -8,25 +8,25 @@ const axios = require("axios");
 
 const { toString } = require("../helper/helpers");
 
-const { TOKEN_DISCORD_BETA, TOKEN_DISCORD_PRODUCTION, DEVELOPMENT } = process.env;
+const { TOKEN_DISCORD_BETA, TOKEN_DISCORD_PRODUCTION, DEVELOPMENT } =
+  process.env;
 
 const { PREFIX } = require("../config/settings.json");
 
-const TOKEN = DEVELOPMENT == "BETA" ? TOKEN_DISCORD_BETA : TOKEN_DISCORD_PRODUCTION;
+const TOKEN =
+  DEVELOPMENT == "BETA" ? TOKEN_DISCORD_BETA : TOKEN_DISCORD_PRODUCTION;
 
 const client = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
 });
 
 client.on("ready", () => {
-  logger.info("[+] Discord on ready");
+  logger.info("Discord on ready");
 });
 
 client.on("messageCreate", async (message) => {
   if (message.author.bot) return;
 
-  const { channelId } = message;
-  const { username } = message.author;
   const userMessage = message.content;
 
   if (userMessage === undefined) return;
@@ -38,19 +38,28 @@ client.on("messageCreate", async (message) => {
 
   if (userMessage.includes(`${PREFIX}help`)) {
     if (splitMessage.length == 2) {
-      output = (await helpCommand(splitMessage[1])) || (await readMessageCommand("output.DISCORD.FAILED", "help"));
+      output =
+        (await helpCommand(splitMessage[1])) ||
+        (await readMessageCommand("output.DISCORD.FAILED", "help"));
     } else {
-      output = embeed(await readMessageCommand("output.DISCORD.SUCCESS", "help"));
-      logger.info(output);
+      output = embeed(
+        await readMessageCommand("output.DISCORD.SUCCESS", "help")
+      );
     }
-  } else if (userMessage.includes(PREFIX) && findCommand(splitMessage[0], "on_discord")) {
+  } else if (
+    userMessage.includes(PREFIX) &&
+    findCommand(splitMessage[0], "on_discord")
+  ) {
     const usingApi = await readMessageCommand("using_api", nameCommand);
 
     if (usingApi) {
       let options = [];
       const url = await readMessageCommand("API.URL", nameCommand);
       const method = await readMessageCommand("API.METHOD", nameCommand);
-      const getMessageOutputAPI = await readMessageCommand("API.SUCCESS_MESSAGE", nameCommand);
+      const getMessageOutputAPI = await readMessageCommand(
+        "API.SUCCESS_MESSAGE",
+        nameCommand
+      );
 
       const regexmatcherOutputAPI = new RegExp(getMessageOutputAPI, "gi");
 
@@ -62,7 +71,9 @@ client.on("messageCreate", async (message) => {
         let tempMessageSplit1 = "";
 
         if (urlSplit.length < tempMessageSplit.length) {
-          tempMessageSplit1 = tempMessageSplit.slice(1, tempMessageSplit.length).join(" ");
+          tempMessageSplit1 = tempMessageSplit
+            .slice(1, tempMessageSplit.length)
+            .join(" ");
           tempMessageSplit = [tempMessageSplit[0], tempMessageSplit1];
         }
 
@@ -93,12 +104,20 @@ client.on("messageCreate", async (message) => {
       const { data } = await axios(options[0]);
 
       if (regexmatcherOutputAPI.test(toString(data))) {
-        output = embeed(await readMessageCommand("output.DISCORD.SUCCESS", nameCommand), data);
+        output = embeed(
+          await readMessageCommand("output.DISCORD.SUCCESS", nameCommand),
+          data
+        );
       } else {
-        output = embeed(await readMessageCommand("output.DISCORD.FAILED", nameCommand), data);
+        output = embeed(
+          await readMessageCommand("output.DISCORD.FAILED", nameCommand),
+          data
+        );
       }
     } else {
-      output = embeed(await readMessageCommand("output.DISCORD.SUCCESS", nameCommand));
+      output = embeed(
+        await readMessageCommand("output.DISCORD.SUCCESS", nameCommand)
+      );
     }
   }
 
