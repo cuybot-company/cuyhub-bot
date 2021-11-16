@@ -51,7 +51,7 @@ const CommandSchema = new Schema(
             text: String,
             icon: String,
           },
-          field: Array,
+          field: { type: Array, default: [] },
           setTimestamp: { type: Boolean, default: false },
         },
       },
