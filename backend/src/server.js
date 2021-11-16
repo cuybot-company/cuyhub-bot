@@ -20,10 +20,6 @@ app.get("/", (req, res) => {
 app.use("/message", messageController);
 app.use("/setting", settingController);
 
-app.get("/coba", async (req, res) => {
-  res.send("asd");
-});
-
 const keepAlive = async () => {
   app.listen(PORT, async () => {
     logger.info(`Listening on: http://localhost:${PORT}`);
