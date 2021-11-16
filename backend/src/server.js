@@ -10,7 +10,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 const PORT = process.env.PORT || 3000;
-const Command = require("../models/commandModels");
 
 app.get("/", (req, res) => {
   res.send("Cuyhub API V1 is ready to use!");
